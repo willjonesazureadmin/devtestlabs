@@ -10,6 +10,6 @@
     "iconUri": "https://chocolatey.org/content/packageimages/sql-server-management-studio.13.0.16106.4.png",
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[System.Security.Principal.WindowsIdentity]::GetCurrent().Name"
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass \"& ./artifact-main.ps1\""
     }
 }
