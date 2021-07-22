@@ -11,10 +11,10 @@
     "iconUri": "https://cdn.rawgit.com/ferventcoder/chocolatey-packages/02c21bebe5abb495a56747cbb9b4b5415c933fc0/icons/git.svg",
     "targetOsType": "Windows",
     "parameters": {
-        "GitRepoName": {
+        "GitRepoUrl": {
             "type": "string",
-            "displayName": "Git Repo Name",
-            "description": "The URI of the Git repository to clone (Only HTTPS urls are supported)."
+            "displayName": "Git Repo URI",
+            "description": "The URI of the Git repository to clone (Only HTTPS urls are supported). should only be in the format of bitbucket.org/<owner>/<reponame>.git"
         },
         "GitLocalRepoLocation": {
             "type": "string",
