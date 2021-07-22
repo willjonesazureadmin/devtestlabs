@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/willjonesazureadmin/devtestlab/master/schemas/dtlArtifacts.json",
+    "title": "Dotnet User Secrets",
+    "publisher": "Azure Admin",
+    "description": "Implement Dotnet User Secrets",
+    "tags": [
+        "Windows",
+        "SSMS"
+    ],
+    "iconUri": "https://chocolatey.org/content/packageimages/sql-server-management-studio.13.0.16106.4.png",
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "[System.Security.Principal.WindowsIdentity]::GetCurrent().Name"
+    }
+}
