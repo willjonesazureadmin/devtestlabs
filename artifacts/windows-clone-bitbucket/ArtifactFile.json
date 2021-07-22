@@ -40,6 +40,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepo ''', parameters('GitRepo'), ''' -GitLocalRepoLocation''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepoName ''', parameters('GitRepoName'), ''' -GitLocalRepoLocation''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
     }
 }
