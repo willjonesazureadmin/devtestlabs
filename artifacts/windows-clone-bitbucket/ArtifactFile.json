@@ -14,7 +14,7 @@
         "GitRepoUrl": {
             "type": "string",
             "displayName": "Git Repo URI",
-            "description": "The URI of the Git repository to clone (Only HTTPS urls are supported). should only be in the format of bitbucket.org/<owner>/<reponame>.git"
+            "description": "Should only be in the format of bitbucket.org/<owner>/<reponame>.git"
         },
         "GitLocalRepoLocation": {
             "type": "string",
@@ -40,6 +40,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepoName ''', parameters('GitRepoName'), ''' -GitLocalRepoLocation''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepoUrl ''', parameters('GitRepoUrl'), ''' -GitLocalRepoLocation''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
     }
 }
