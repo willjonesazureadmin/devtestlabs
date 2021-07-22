@@ -1,7 +1,7 @@
 Param(
     #
     [ValidateNotNullOrEmpty()]
-    $GitRepoName, 
+    $GitRepoUrl, 
 
     #
     [ValidateNotNullOrEmpty()] 
@@ -20,15 +20,9 @@ Param(
     $BitbucketAppPassword
 )
 
-try
-{
-    curl -u "$BitbucketUserName:$BitbucketAppPassword" "https://api.bitbucket.org/2.0/repositories/$GitRepoName"
-}
-finally
-{
 
-}
-
+   $cmd = "git clone -q https://$($BitbucketUsername):$($BitbucketAppPassword)@$($GitRepoUrl)"
+   Invoke-Expression $cmd -ErrorAction SilentlyContinue
 
 
 
