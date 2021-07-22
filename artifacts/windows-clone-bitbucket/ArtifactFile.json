@@ -11,12 +11,12 @@
     "iconUri": "https://cdn.rawgit.com/ferventcoder/chocolatey-packages/02c21bebe5abb495a56747cbb9b4b5415c933fc0/icons/git.svg",
     "targetOsType": "Windows",
     "parameters": {
-        "GitRepo": {
+        "GitRepoName": {
             "type": "string",
-            "displayName": "Git Repo URI",
+            "displayName": "Git Repo Name",
             "description": "The URI of the Git repository to clone (Only HTTPS urls are supported)."
         },
-        "GitLocalRepoLocation ": {
+        "GitLocalRepoLocation": {
             "type": "string",
             "displayName": "Destination",
             "description": "A parent directory into which your repository will be cloned. E.g. - If you specify your destination as c:\\Repos, then a new sub-directory (c:\\Repos\\{your local repo}) will be created and your repo will be cloned into it.",
@@ -40,6 +40,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepo ''', parameters('GitRepo'), ''' -GitLocalRepoLocation ''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -GitRepo ''', parameters('GitRepo'), ''' -GitLocalRepoLocation''', parameters('GitLocalRepoLocation'), ''' -GitBranch ''', parameters('GitBranch'), ''' -BitbucketUserName ''', parameters('BitbucketUserName'),''' -BitbucketAppPassword ''', parameters('BitbucketAppPassword'), '''\"')]"
     }
 }
