@@ -1,7 +1,7 @@
 Param(
     #
     [ValidateNotNullOrEmpty()]
-    $GitRepo, 
+    $GitRepoName, 
 
     #
     [ValidateNotNullOrEmpty()] 
@@ -22,7 +22,7 @@ Param(
 
 try
 {
-    curl -u "$BitbucketUserName:$BitbucketAppPassword" "https://api.bitbucket.org/2.0/repositories/$GitRepo"
+    curl -u "$BitbucketUserName:$BitbucketAppPassword" "https://api.bitbucket.org/2.0/repositories/$GitRepoName"
 }
 finally
 {
