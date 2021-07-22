@@ -22,7 +22,7 @@
             "description": "A parent directory into which your repository will be cloned. E.g. - If you specify your destination as c:\\Repos, then a new sub-directory (c:\\Repos\\{your local repo}) will be created and your repo will be cloned into it.",
             "defaultValue": "C:\\Repos"
         },
-        "GitBranch ": {
+        "GitBranch": {
             "type": "string",
             "displayName": "Branch / Tag",
             "description": "The branch or tag that will be checked out. Specify 'master' if you're not sure.",
