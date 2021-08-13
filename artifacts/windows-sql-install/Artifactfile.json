@@ -1,0 +1,18 @@
+  
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Install SQL 2019 Dev Edition",
+    "publisher": "Azure Admin",
+    "description": "Installs SQL SErver",
+    "tags": [
+        "Windows",
+        "SQL"
+    ],
+    "iconUri": "https://cdn.rawgit.com/ferventcoder/chocolatey-packages/02c21bebe5abb495a56747cbb9b4b5415c933fc0/icons/git.svg",
+    "targetOsType": "Windows",
+    "parameters": {
+    },
+    "runCommand": {
+        "commandToExecute": "setup.exe /Q /IACCEPTSQLSERVERLICENSETERMS /ACTION='install' /PID='22222-00000-00000-00000-00000' /FEATURES=SQL,AS,IS,Tools"
+    }
+}
