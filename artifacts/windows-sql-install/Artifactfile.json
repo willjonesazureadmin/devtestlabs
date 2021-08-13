@@ -13,6 +13,6 @@
     "parameters": {
     },
     "runCommand": {
-        "commandToExecute": "SQL2019-SSEI-Dev.exe /Q /IACCEPTSQLSERVERLICENSETERMS /ACTION='install' /PID='22222-00000-00000-00000-00000' /FEATURES=SQL,AS,IS,Tools"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1')]"
     }
 }
