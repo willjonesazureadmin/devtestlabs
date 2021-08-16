@@ -10,7 +10,7 @@ param(
     [string] $PsModules = $null,
 
     # comma- separated list of powershell modules.
-    [string] $Packages,
+    [string] $Packages "azure-cli",
 
     # Boolean indicating if we should allow empty checksums. Default to true to match previous artifact functionality despite security
     [bool] $AllowEmptyChecksums = $true,
