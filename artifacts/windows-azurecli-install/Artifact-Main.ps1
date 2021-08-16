@@ -180,7 +180,7 @@ function Validate-Params
     param(
     )
 
-    if ([string]::IsNullOrEmpty($PsModules))
+    if ([string]::IsNullOrEmpty($Packages))
     {
         throw 'Packages parameter is required.'
     }
