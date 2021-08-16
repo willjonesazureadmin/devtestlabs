@@ -7,7 +7,7 @@
 [CmdletBinding()]
 param(
     # comma- separated list of powershell modules.
-    [string] $PsModules,
+    [string] $PsModules = $null,
 
     # comma- separated list of powershell modules.
     [string] $Packages,
