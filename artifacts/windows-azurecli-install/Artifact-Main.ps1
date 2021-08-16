@@ -200,13 +200,6 @@ try
     Write-Host 'Validating parameters.'
     Validate-Params
 
-    Write-Host 'Configuring PowerShell session.'
-    Ensure-PowerShell -Version $PSVersionRequired
-    Enable-PSRemoting -Force -SkipNetworkProfileCheck | Out-Null
-
-    Write-Host 'Configuring PowerShell Modules.'
-    Ensure-PowershellModules $PsModules
-
     Write-Host 'Checking Chocolately'
     Ensure-Chocolatey -ChocoExePath $choco
 
