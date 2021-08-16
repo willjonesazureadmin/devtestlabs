@@ -1,8 +1,8 @@
 {
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "SSMS",
+    "title": "Install Azure Cli",
     "publisher": "Microsoft",
-    "description": "Installs Sql server management studio using the Chocolatey package manager.",
+    "description": "Installs the Azure Cli",
     "tags": [
         "Windows",
         "Azure CLI"
