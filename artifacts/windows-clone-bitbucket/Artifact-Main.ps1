@@ -206,17 +206,6 @@ function Invoke-ExpressionImpl
     }
 }
 
-function Validate-Params
-{
-    [CmdletBinding()]
-    param(
-    )
-
-    if ([string]::IsNullOrEmpty($PsModules))
-    {
-        throw 'Packages parameter is required.'
-    }
-}
 
 ###################################################################################################
 #
@@ -228,20 +217,24 @@ try
     pushd $PSScriptRoot
 
     Write-Host 'Validating parameters.'
-    Validate-Params
 
     Write-Host 'Configuring PowerShell session.'
     Ensure-PowerShell -Version $PSVersionRequired
     Enable-PSRemoting -Force -SkipNetworkProfileCheck | Out-Null
 
-    Write-Host 'Configuring PowerShell Modules.'
-    Ensure-PowershellModules $PsModules
-
+    if($PsModules -ne "")
+    {
+        Write-Host 'Configuring PowerShell Modules.'
+        Ensure-PowershellModules $PsModules
+    }
     Write-Host 'Checking Chocolately'
     Ensure-Chocolatey -ChocoExePath $choco
 
-    Write-Host 'Checking Az Cli'
-    Install-Packages -Packages $Packages -ChocoExePath $choco
+    if($Packages -ne "")
+    {
+        Write-Host 'Checking Az Cli'
+        Install-Packages -Packages $Packages -ChocoExePath $choco
+    }
 
     Write-Host 'Running Command'
     RunCommand -KeyvaultName $KeyVaultName -secretName $SecretName -csvPath $csvPath
