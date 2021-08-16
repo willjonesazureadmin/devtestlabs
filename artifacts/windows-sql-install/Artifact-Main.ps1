@@ -1,4 +1,3 @@
-  
 ##################################################################################################
 #
 # Parameters to this script file.
@@ -10,7 +9,7 @@ param(
     [string] $PsModules,
 
     # comma- separated list of powershell modules.
-    [string] $Packages = "choco install sql-server-2019",
+    [string] $Packages = "sql-server-2019",
 
     # Boolean indicating if we should allow empty checksums. Default to true to match previous artifact functionality despite security
     [bool] $AllowEmptyChecksums = $true,
@@ -143,24 +142,7 @@ function Ensure-PowerShell
 
 function RunCommand
 {
-    [CmdletBinding()]
-    param(
-        $KeyvaultName,
-
-        $secretName,
-
-        $csvPath
-    )
-    # Run custom command for this artifact.
-   $VM = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET  -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01"
-   Login-AzAccount -Identity
-   $secret = Get-AzKeyVaultSecret -VaultName $KeyvaultName -Name $secretName -AsPlainText
-   $repos = Import-Csv -Path $csvPath
-   foreach($r in $repos)
-   {
-            $cmd = "git clone -q https://$($secretName):$($secret)@$($r)"
-            Invoke-Expression $cmd -ErrorAction SilentlyContinue
-   }
+  
 
 
 }
@@ -223,12 +205,10 @@ try
 
     if($Packages -ne "")
     {
-        Write-Host 'Checking Az Cli'
+        Write-Host 'Checking Packages'
         Install-Packages -Packages $Packages -ChocoExePath $choco
     }
 
-    Write-Host 'Running Command'
-    RunCommand -KeyvaultName $KeyVaultName -secretName $SecretName -csvPath $csvPath
 
     Write-Host "`nThe artifact was applied successfully.`n"
 }
