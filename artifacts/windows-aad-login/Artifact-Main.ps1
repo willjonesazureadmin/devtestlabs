@@ -145,6 +145,7 @@ function RunCommand
 {
 
     # Run custom command for this artifact.
+    Install−PackageProvider −Name Nuget −Force
         $VM = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET  -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01"
    az login --identity
    az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADLoginForWindows --resource-group $vm.compute.resourceGroupName --vm-name $vm.compute.name
