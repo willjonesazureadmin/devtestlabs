@@ -6,20 +6,8 @@
 
 [CmdletBinding()]
 param(
-    # DevTest Lab Names
+    # DevTest Lab Names to allow VM to find itself
     [string] $DTLName = "DTL",
-
-    # domain name
-    [string] $DomainName = "azureadmin.local",
-
-    # secret reference
-    [string] $SecretReference = "DTL-DomainJoin",
-
-    # keyvault name name
-    [string] $KeyVaultName = "aadtlkv01",
-
-    # domain join username
-    [string] $DomainJoinUsername = "dtl-domainjoin",
 
     #Groups To Add User To
     [string] $Groups = "SQLAdmins,Administrators",
@@ -104,7 +92,7 @@ function RunCommand
         $apiToken = $content.access_token
 
        
-        $dtlVM = ConvertFrom-Json (Invoke-WebRequest -Uri "https://management.azure.com/subscriptions/$($VM.compute.subscriptionId)/resourceGroups/$($VM.compute.resourceGroupName)/providers/Microsoft.DevTestLab/labs/$($DTLName)/virtualmachines/$($VM.compute.name)?api-version=2016-05-15" -Method GET -Headers @{Authorization="Bearer $apiToken"} -ContentType "application/json").content
+          $dtlVM = ConvertFrom-Json (Invoke-WebRequest -Uri "https://management.azure.com/subscriptions/$($VM.compute.subscriptionId)/resourceGroups/$($VM.compute.resourceGroupName)/providers/Microsoft.DevTestLab/labs/$($DTLName)/virtualmachines/$($VM.compute.name)?api-version=2016-05-15" -Method GET -Headers @{Authorization="Bearer $apiToken"} -ContentType "application/json" -UseBasicParsing).content
         
         
         foreach($GroupName in $Groups -split ",")
@@ -113,8 +101,10 @@ function RunCommand
                 $group = Get-LocalGroup -Name $GroupName -ErrorAction SilentlyContinue
                 if($group -eq $null)
                 {
+                    Write-Host "Creating group $GroupName"
                     New-LocalGroup -Name $GroupName 
                 }
+                Write-Host "Adding user $($dtlVM.properties.ownerUserPrincipalName) to group $GroupName"
                 Add-LocalGroupMember -Group $GroupName -Member $($dtlVM.properties.ownerUserPrincipalName) -ErrorAction SilentlyContinue
         }
  
