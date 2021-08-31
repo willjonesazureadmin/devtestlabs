@@ -125,9 +125,9 @@ function RunCommand
     $dataDisk1 = New-AzDisk -DiskName $dataDiskName -Disk $diskConfig -ResourceGroupName $vm.compute.resourceGroupName 
 
     $vmToUpdate = Get-AzVM -Name $VM.Compute.Name -ResourceGroupName $vm.compute.resourceGroupName
-    Add-AzVMDataDisk -VM $vmToUpdate -Name $dataDiskName -CreateOption Attach -ManagedDiskId $dataDisk1.Id -Lun 1 -AsJob
+    Add-AzVMDataDisk -VM $vmToUpdate -Name $dataDiskName -CreateOption Attach -ManagedDiskId $dataDisk1.Id -Lun 1 
 
-    Update-AzVM -VM $vmToUpdate -ResourceGroupName $vm.compute.resourceGroupName
+    Update-AzVM -VM $vmToUpdate -ResourceGroupName $vm.compute.resourceGroupName -AsJob
 
     Start-Sleep -Seconds 15
 
