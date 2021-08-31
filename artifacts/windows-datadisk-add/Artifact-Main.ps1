@@ -18,9 +18,14 @@ param(
     # Minimum PowerShell version required to execute this script.
     [int] $PSVersionRequired = 5,
 
-    $storageType = 'StandardSSD_LRS',
-    $dataDiskNameSuffix =  '_datadisk1',
-    $diskSize = 200
+    # Azure Disk Type
+    [string] $storageType = 'StandardSSD_LRS',
+    
+    # Disk name suffix
+    [string] $dataDiskNameSuffix =  '_datadisk1',
+    
+     # Disk Size
+    [string] $diskSize = 200
 
 )
 
@@ -120,7 +125,7 @@ function RunCommand
     $dataDisk1 = New-AzDisk -DiskName $dataDiskName -Disk $diskConfig -ResourceGroupName $vm.compute.resourceGroupName 
 
     $vmToUpdate = Get-AzVM -Name $VM.Compute.Name -ResourceGroupName $vm.compute.resourceGroupName
-    Add-AzVMDataDisk -VM $vmToUpdate -Name $dataDiskName -CreateOption Attach -ManagedDiskId $dataDisk1.Id -Lun 1
+    Add-AzVMDataDisk -VM $vmToUpdate -Name $dataDiskName -CreateOption Attach -ManagedDiskId $dataDisk1.Id -Lun 1 -AsJob
 
     Update-AzVM -VM $vmToUpdate -ResourceGroupName $vm.compute.resourceGroupName
 
