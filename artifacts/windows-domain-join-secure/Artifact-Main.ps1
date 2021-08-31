@@ -106,10 +106,10 @@ function RunCommand
         $result = (Invoke-WebRequest -Uri "https://$($KeyVaultName).vault.azure.net/secrets/$($SecretReference)?api-version=2016-10-01" -Method GET -Headers @{Authorization="Bearer $KeyVaultToken"} -UseBasicParsing).content
         $begin = $result.IndexOf("value") + 8
         $endlength = ($result.IndexOf('"',$begin) -10)
-        $DomainAdminPassword = $result.Substring($begin,$endlength)
+        $DomainJoinPassword = $result.Substring($begin,$endlength)
 
         Write-Host "Attempting to join computer $($Env:COMPUTERNAME) to domain $DomainName."
-        $securePass = ConvertTo-SecureString $DomainAdminPassword -AsPlainText -Force
+        $securePass = ConvertTo-SecureString $DomainJoinPassword -AsPlainText -Force
 
         if ((Get-WmiObject Win32_ComputerSystem).Domain -eq $DomainName)
         {
@@ -117,8 +117,7 @@ function RunCommand
         }
         else
         {
-            $aggregatedUserName = $DomainName + "\" + $DomainJoinUsername
-            $credential = New-Object System.Management.Automation.PSCredential($aggregatedUserName, $securePass)
+            $credential = New-Object System.Management.Automation.PSCredential($DomainJoinUsername, $securePass)
         
             if ($OUPath)
             {
