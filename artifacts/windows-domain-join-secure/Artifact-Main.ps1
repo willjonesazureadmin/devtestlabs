@@ -117,7 +117,7 @@ function RunCommand
         }
         else
         {
-            $FQDNDomainJoinusername = $DomainName + "\" $DomainJoinUsername
+            $FQDNDomainJoinusername = $DomainName + "\"  + $DomainJoinUsername
             $credential = New-Object System.Management.Automation.PSCredential($FQDNDomainJoinusername, $securePass)
         
             if ($OUPath)
