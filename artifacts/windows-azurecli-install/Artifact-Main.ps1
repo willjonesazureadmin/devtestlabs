@@ -6,9 +6,6 @@
 [CmdletBinding()]
 param(
     # comma- separated list of powershell modules.
-    [string] $PsModules = $null,
-
-    # comma- separated list of powershell modules.
     [string] $Packages = "azure-cli",
 
     # Boolean indicating if we should allow empty checksums. Default to true to match previous artifact functionality despite security
@@ -68,24 +65,6 @@ trap
 # Functions used in this script.
 #
 
-function Ensure-PowershellModules
-{
-    [CmdletBinding()]
-    param(
-        [string] $PsModulesStr
-    )
-    If($PsModulesStr -ne $null)
-    {
-    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
-    Install-PackageProvider -Name nuget -Confirm:$False
-    $PsModules = $PsModulesStr.Split(",")
-    foreach($m in $PsModules)
-    {
-        Install-Module $m -Confirm:$False
-    }
-    }
-
-}
 
 function Ensure-Chocolatey
 {
@@ -125,20 +104,6 @@ function Install-Packages
         }
         $expression = "$ChocoExePath install -y -f --acceptlicense $checkSumFlags --no-progress --stoponfirstfailure $_"
         Invoke-ExpressionImpl -Expression $expression
-    }
-}
-
-
-function Ensure-PowerShell
-{
-    [CmdletBinding()]
-    param(
-        [int] $Version
-    )
-
-    if ($PSVersionTable.PSVersion.Major -lt $Version)
-    {
-        throw "The current version of PowerShell is $($PSVersionTable.PSVersion.Major). Prior to running this artifact, ensure you have PowerShell $Version or higher installed."
     }
 }
 
