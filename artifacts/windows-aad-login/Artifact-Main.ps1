@@ -100,9 +100,9 @@ function RunCommand
 {
 
     # Run custom command for this artifact.
-        $VM = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET  -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01"
-       az login --identity
-       az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADLoginForWindows --resource-group $vm.compute.resourceGroupName --vm-name $vm.compute.name
+       $VM = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET  -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01"
+       Login-AzAccount -Identity
+       Set-AzVMExtension -Publisher "Microsoft.Azure.ActiveDirectory" -Name "AADLoginForWindows" -ResourceGroupName $vm.compute.resourceGroupName -VMName $vm.compute.name -ExtensionType "AADLoginForWindows" -Location $vm.compute.location
 }
 
 function Invoke-ExpressionImpl
