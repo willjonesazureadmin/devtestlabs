@@ -117,7 +117,7 @@ function RunCommand
         }
         else
         {
-            $credential = New-Object System.Management.Automation.PSCredential($DomainJoinUsername, $Password)
+            $credential = New-Object System.Management.Automation.PSCredential($DomainJoinUsername, $securePass)
         
             if ($OUPath)
             {
