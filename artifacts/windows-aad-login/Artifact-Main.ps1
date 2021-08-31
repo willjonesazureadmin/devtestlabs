@@ -8,9 +8,6 @@ param(
     # comma- separated list of powershell modules.
     [string] $PsModules = "Az",
 
-    # comma- separated list of powershell modules.
-    [string] $Packages = "azure-cli;",
-
     # Boolean indicating if we should allow empty checksums. Default to true to match previous artifact functionality despite security
     [bool] $AllowEmptyChecksums = $true,
 
@@ -85,48 +82,6 @@ function Ensure-PowershellModules
 
 }
 
-function Ensure-Chocolatey
-{
-    [CmdletBinding()]
-    param(
-        [string] $ChocoExePath
-    )
-
-    if (-not (Test-Path "$ChocoExePath"))
-    {
-        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-        if ($LastExitCode -eq 3010)
-        {
-            Write-Host 'The recent changes indicate a reboot is necessary. Please reboot at your earliest convenience.'
-        }
-    }
-}
-
-function Install-Packages
-{
-    [CmdletBinding()]
-    param(
-        [string] $ChocoExePath,
-        $Packages
-    )
-
-
-    $Packages = $Packages.split(',; ', [StringSplitOptions]::RemoveEmptyEntries)
-    $Packages | % {
-        $checkSumFlags = ""
-        if ($AllowEmptyChecksums)
-        {
-            $checkSumFlags = $checkSumFlags + " --allow-empty-checksums "
-        }
-        if ($IgnoreChecksums)
-        {
-            $checkSumFlags = $checkSumFlags + " --ignore-checksums "
-        }
-        $expression = "$ChocoExePath install -y -f --acceptlicense $checkSumFlags --no-progress --stoponfirstfailure $_"
-        Invoke-ExpressionImpl -Expression $expression
-    }
-}
-
 
 function Ensure-PowerShell
 {
@@ -146,8 +101,8 @@ function RunCommand
 
     # Run custom command for this artifact.
         $VM = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET  -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01"
-   az login --identity
-   az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADLoginForWindows --resource-group $vm.compute.resourceGroupName --vm-name $vm.compute.name
+       az login --identity
+       az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADLoginForWindows --resource-group $vm.compute.resourceGroupName --vm-name $vm.compute.name
 }
 
 function Invoke-ExpressionImpl
@@ -213,13 +168,7 @@ try
     Write-Host 'Configuring PowerShell Modules.'
     Ensure-PowershellModules $PsModules
 
-    Write-Host 'Checking Chocolately'
-    Ensure-Chocolatey -ChocoExePath $choco
-
-    Write-Host 'Checking Az Cli'
-    Install-Packages -Packages $Packages -ChocoExePath $choco
-
-    Write-Host 'Running Command'
+     Write-Host 'Running Command'
     RunCommand
 
     Write-Host "`nThe artifact was applied successfully.`n"
