@@ -7,7 +7,7 @@
         "Windows",
         "Azure CLI"
     ],
-    "iconUri": "https://community.chocolatey.org/content/packageimages/sql-server-management-studio.15.0.18386.0.png",
+    "iconUri": "",
     "targetOsType": "Windows",
     "runCommand": {
         "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Artifact-Main.ps1 -Packages ''', 'azure-cli', '''\"')]"
