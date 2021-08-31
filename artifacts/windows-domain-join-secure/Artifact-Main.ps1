@@ -107,7 +107,7 @@ function RunCommand
         $begin = $result.IndexOf("value") + 8
         $endlength = ($result.IndexOf('"',$begin) -10)
         $DomainJoinPassword = $result.Substring($begin,$endlength)
-
+        
         Write-Host "Attempting to join computer $($Env:COMPUTERNAME) to domain $DomainName."
         $securePass = ConvertTo-SecureString $DomainJoinPassword -AsPlainText -Force
 
@@ -117,7 +117,8 @@ function RunCommand
         }
         else
         {
-            $credential = New-Object System.Management.Automation.PSCredential($DomainJoinUsername, $securePass)
+            $FQDNDomainJoinusername = $DomainName + "\" $DomainJoinUsername
+            $credential = New-Object System.Management.Automation.PSCredential($FQDNDomainJoinusername, $securePass)
         
             if ($OUPath)
             {
