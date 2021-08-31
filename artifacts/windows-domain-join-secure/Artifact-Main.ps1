@@ -117,7 +117,8 @@ function RunCommand
         }
         else
         {
-            $credential = New-Object System.Management.Automation.PSCredential($DomainJoinUsername, $securePass)
+            $aggregatedUserName = $DomainName + "\" + $DomainJoinUsername
+            $credential = New-Object System.Management.Automation.PSCredential($aggregatedUserName, $securePass)
         
             if ($OUPath)
             {
