@@ -71,8 +71,8 @@ function Ensure-PowershellModules
     param(
         [string] $PsModulesStr
     )
-    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
-    Install-PackageProvider -Name nuget -Confirm:$False
+    Install-PackageProvider -Name nuget -Confirm:$False -Force
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
     $PsModules = $PsModulesStr.Split(",")
     foreach($m in $PsModules)
     {
